@@ -1,0 +1,10 @@
+!include <C4/C4_Container>
+
+!include lib/ifs_common.puml
+!include lib/mysql.puml
+!include lib/cloudflare.puml
+!include lib/redis.puml
+!include lib/postgresql.puml
+!include lib/elasticsearch.puml
+!include lib/kafka.puml
+!include lib/python.puml

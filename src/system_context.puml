@@ -1,0 +1,16 @@
+@startuml system_context
+!include std.puml
+
+Person(endUser, "End User")
+System(chat, "Lock.Chat", "Chat app + Finance superpowers")
+System(bot, "Lock Assistant", "Smart Fintech Assistant")
+System(wallet, "LockMoney", "Digital wallet")
+System_Ext(extBank, "External Finance Systems", "Banks & wallets outside of ecosystem")
+
+Rel(endUser, chat, "Chat & transfer")
+Rel(endUser, wallet, "Manage wallet + transactions")
+Rel_R(bot, chat, "Provide payment suggestions + recommendations")
+Rel(wallet, extBank, "Transfer/Receive")
+Rel(chat, wallet, "Submit transactions")
+
+@enduml

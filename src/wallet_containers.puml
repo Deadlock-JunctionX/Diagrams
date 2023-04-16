@@ -1,0 +1,24 @@
+@startuml wallet_containers
+!include std.puml
+
+LAYOUT_LANDSCAPE()
+
+Person(endUser, "End User")
+
+System_Boundary(wallet, "LockMoney") {
+    Container(walletWeb, "Web service", "Python", "Web serving + API", $sprite="python")
+    ContainerDb(walletDb, "OLTP Database", "PostgreSQL", "Store user & transaction data", $sprite="postgresql")
+    ContainerDb(walletLock, "Lock Store", "Redis", "Handle transaction locking", $sprite="redis")
+
+    Rel(walletWeb, walletLock, "Read/write")
+    Rel(walletWeb, walletDb, "Read/write")
+}
+System_Ext(chat, "Lock.Chat", "Chat app + Finance superpowers")
+System_Ext(extBank, "External Finance Systems", "Banks & wallets outside of ecosystem")
+
+Rel(endUser, chat, "Chat & transfer")
+Rel(endUser, walletWeb, "Manage wallet + transactions")
+Rel(walletWeb, extBank, "Transfer/Receive")
+Rel(chat, walletWeb, "Submit transactions")
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml transaction_flow
+!include std.puml
+!include <C4/C4_Dynamic>
+
+LAYOUT_LANDSCAPE()
+
+Person(user1, "User 1")
+Person(user2, "User 2")
+System(chat, "Lock.Chat", "Chat app + Finance superpowers")
+System(bot, "Lock Assistant", "Smart Fintech Assistant")
+System(wallet, "LockMoney", "Digital wallet")
+System_Ext(extBank, "External Finance Systems", "Banks & wallets outside of ecosystem")
+
+Rel(user1, chat, "Send message with transfer intent for User 2")
+Rel(chat, bot, "Fetch intent prediction + metadata")
+Rel(bot, chat, "Return intent prediction")
+Rel(chat, chat, "Look up user payment info")
+Rel(chat, user2, "Display transfer suggestion")
+Rel(user2, chat, "Select transfer options + authenticate")
+Rel(chat, wallet, "Fetch trusted token for transaction")
+Rel(wallet, chat, "Send trusted token")
+Rel(chat, wallet, "Submit transaction")
+Rel(wallet, extBank, "Perform transaction")
+Rel(wallet, wallet, "Update account information")
+Rel(wallet, chat, "Confirm transaction success")
+Rel(chat, user1, "Send payment notification")
+
+@enduml

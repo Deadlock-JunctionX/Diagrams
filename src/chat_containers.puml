@@ -1,0 +1,19 @@
+@startuml chat_containers
+!include std.puml
+
+Person(endUser, "End User")
+System_Boundary(chat, "Lock.Chat") {
+    Container(chatWeb, "Web Service", "Javascript", "Serve web app + API")
+    ContainerDb(chatDb, "Chat Database", "Firebase", "Store messages & user info")
+    Rel(chatWeb, chatDb, "Read/write")
+}
+System_Ext(bot, "Lock Assistant", "Smart Fintech Assistant")
+System_Ext(wallet, "LockMoney", "Digital wallet")
+
+Rel(endUser, chatWeb, "Chat & transfer")
+Rel(endUser, wallet, "Manage wallet + transactions")
+Rel_R(chatWeb, bot, "Fetch intent predictions")
+Rel(bot, chatWeb, "Send bot messages")
+Rel(chatWeb, wallet, "Submit transactions")
+
+@enduml

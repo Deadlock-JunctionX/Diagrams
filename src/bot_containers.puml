@@ -1,0 +1,15 @@
+@startuml bot_containers
+!include std.puml
+
+Person(endUser, "End User")
+System_Ext(chat, "Lock.Chat", "Chat app + Finance superpowers")
+System_Boundary(bot, "Lock Assistant") {
+    Container(botApi, "API Server", "Python", "Serve intent predictions", $sprite="python")
+    Container(botService, "Interaction Service", "Python", "Push recommendation messages [PLANNED]", $sprite="python")
+}
+
+Rel(endUser, chat, "Chat & transfer")
+Rel(chat, botApi, "Fetch intent predictions")
+Rel(botService, chat, "Push messages + Fetch chat histories")
+
+@enduml
